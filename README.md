@@ -26,7 +26,7 @@ Source: https://github.com/Vennilavanguvi/Brain-Tasks-App.git
 ## CI/CD Pipeline
 - Source: GitHub (main branch)
 - Build: AWS CodeBuild using buildspec.yml
-- Deploy: kubectl apply to EKS via CodeBuild post_build phase
+- Deploy: kubectl apply to EKS via CodePipeline Deploy stage (DeployToEKS - brain-tasks-deploy CodeBuild project)
 - Trigger: Auto-triggers on every GitHub push
 
 ## Monitoring
