@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Setting up kubectl...
+      - aws eks update-kubeconfig --region ap-south-2 --name project1-eks-cluster
+  build:
+    commands:
+      - echo Deploying to EKS...
+      - kubectl apply -f deployment.yaml
+      - kubectl apply -f service.yaml
+      - kubectl rollout status deployment/brain-tasks-app
+  post_build:
+    commands:
+      - echo Deploy complete!
+      - kubectl get pods
+      - kubectl get svc

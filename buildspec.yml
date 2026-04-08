@@ -7,7 +7,6 @@ phases:
       - aws ecr get-login-password --region ap-south-2 | docker login --username AWS --password-stdin 132831331682.dkr.ecr.ap-south-2.amazonaws.com
       - REPOSITORY_URI=132831331682.dkr.ecr.ap-south-2.amazonaws.com/brain-tasks-app
       - IMAGE_TAG=$CODEBUILD_BUILD_NUMBER
-      - aws eks update-kubeconfig --region ap-south-2 --name project1-eks-cluster
   build:
     commands:
       - echo Building Docker image...
@@ -18,7 +17,8 @@ phases:
       - echo Pushing Docker image to ECR...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:latest
-      - echo Deploying to EKS...
-      - kubectl apply -f deployment.yaml
-      - kubectl apply -f service.yaml
-      - echo Deploy complete!
+      - echo Build complete!
+artifacts:
+  files:
+    - deployment.yaml
+    - service.yaml
