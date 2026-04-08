@@ -1,91 +1,38 @@
-DevOps Practice Project – Dist Directory
+# DevOps Project 1 - Brain Tasks App
 
-This repository contains the production-ready build files (dist folder) for DevOps practice and deployment exercises.
+## Application
+React-based Brain Tasks application deployed to production using AWS EKS, ECR, CodeBuild and CodePipeline.
 
-It is intentionally structured to help learners focus on CI/CD pipelines, hosting, containerization, and infrastructure setup rather than application development.
+## Repository
+Source: https://github.com/Vennilavanguvi/Brain-Tasks-App.git
 
-📁 What This Repository Contains
+## Infrastructure
+- AWS EC2 t3.small (Amazon Linux 2023) - Management instance
+- AWS EKS cluster: project1-eks-cluster (ap-south-2)
+- AWS ECR: brain-tasks-app repository
+- AWS CodeBuild: brain-tasks-codebuild
+- AWS CodePipeline: brain-tasks-pipeline
 
-dist/ – Compiled and production-ready static files
+## Docker Setup
+- Base Image: nginx:alpine
+- App served on port 3000
+- Image pushed to AWS ECR
 
-HTML
+## Kubernetes
+- Deployment: 2 replicas
+- Service: LoadBalancer type on port 80 → 3000
+- LoadBalancer URL: a7c4b4474ab9b4761be1dd4a5d12a53b-139767472.ap-south-2.elb.amazonaws.com
 
-CSS
+## CI/CD Pipeline
+- Source: GitHub (main branch)
+- Build: AWS CodeBuild using buildspec.yml
+- Deploy: kubectl apply to EKS via CodeBuild post_build phase
+- Trigger: Auto-triggers on every GitHub push
 
-JavaScript
+## Monitoring
+- CloudWatch Logs: /aws/codebuild/brain-tasks-codebuild
+- Tracks build, deploy, and application logs
 
-Assets (images, fonts, etc.)
-
-These files are ready to deploy to:
-
-Web servers (Nginx / Apache)
-
-Cloud platforms (AWS S3, Azure Blob, GCP Storage)
-
-Containerized environments (Docker + Nginx)
-
-Kubernetes clusters
-
-CI/CD pipeline demonstrations
-
-🎯 Purpose of This Repository
-
-This repository is designed for:
-
-DevOps beginners
-
-CI/CD practice
-
-Deployment pipeline testing
-
-Docker & Kubernetes deployment exercises
-
-Web server configuration practice
-
-Reverse proxy and load balancer setup
-
-The goal is to simulate real-world deployment scenarios using already built application files.
-
-❓ Why is there NO package.json?
-
-You may notice that this repository does not include:
-
-package.json
-
-node_modules
-
-Source code (src/)
-
-Build tools configuration
-
-✅ Reason:
-
-This repository only contains the final production build output (dist), not the development source code.
-
-In a typical project:
-
-Developers write source code.
-
-The project is built using tools like:
-
-Node.js
-
-Webpack
-
-Vite
-
-React (or other frameworks)
-
-A dist/ folder is generated.
-
-Only the production build is deployed to servers.
-
-This repository represents step 4 only.
-
-Since this is already the compiled output:
-
-No dependencies are required
-
-No build process is required
-
-No package.json is needed
+## Submission
+- GitHub: https://github.com/Rajkumar-dev005/devops-project-1
+- LoadBalancer ARN: a7c4b4474ab9b4761be1dd4a5d12a53b-139767472.ap-south-2.elb.amazonaws.com
